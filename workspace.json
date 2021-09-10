@@ -1,14 +1,14 @@
 {
-  "version": 1,
+  "version": 2,
   "projects": {
     "my-modern-app": {
       "projectType": "application",
       "root": "apps/my-modern-app",
       "sourceRoot": "apps/my-modern-app/src",
       "prefix": "modernity",
-      "architect": {
+      "targets": {
         "build": {
-          "builder": "@angular-devkit/build-angular:browser",
+          "executor": "@angular-devkit/build-angular:browser",
           "outputs": ["{options.outputPath}"],
           "options": {
             "outputPath": "dist/apps/my-modern-app",
@@ -57,7 +57,7 @@
           "defaultConfiguration": "production"
         },
         "serve": {
-          "builder": "@angular-devkit/build-angular:dev-server",
+          "executor": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
               "browserTarget": "my-modern-app:build:production"
@@ -69,13 +69,13 @@
           "defaultConfiguration": "development"
         },
         "extract-i18n": {
-          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "executor": "@angular-devkit/build-angular:extract-i18n",
           "options": {
             "browserTarget": "my-modern-app:build"
           }
         },
         "lint": {
-          "builder": "@nrwl/linter:eslint",
+          "executor": "@nrwl/linter:eslint",
           "options": {
             "lintFilePatterns": [
               "apps/my-modern-app/src/**/*.ts",
@@ -84,7 +84,7 @@
           }
         },
         "test": {
-          "builder": "@nrwl/jest:jest",
+          "executor": "@nrwl/jest:jest",
           "outputs": ["coverage/apps/my-modern-app"],
           "options": {
             "jestConfig": "apps/my-modern-app/jest.config.js",
@@ -97,9 +97,9 @@
       "root": "apps/my-modern-app-e2e",
       "sourceRoot": "apps/my-modern-app-e2e/src",
       "projectType": "application",
-      "architect": {
+      "targets": {
         "e2e": {
-          "builder": "@nrwl/cypress:cypress",
+          "executor": "@nrwl/cypress:cypress",
           "options": {
             "cypressConfig": "apps/my-modern-app-e2e/cypress.json",
             "devServerTarget": "my-modern-app:serve:development",
@@ -112,7 +112,7 @@
           }
         },
         "lint": {
-          "builder": "@nrwl/linter:eslint",
+          "executor": "@nrwl/linter:eslint",
           "outputs": ["{options.outputFile}"],
           "options": {
             "lintFilePatterns": ["apps/my-modern-app-e2e/**/*.{js,ts}"]
@@ -125,7 +125,7 @@
     "defaultCollection": "@nrwl/angular",
     "packageManager": "npm"
   },
-  "schematics": {
+  "generators": {
     "@nrwl/angular": {
       "application": {
         "linter": "eslint"
