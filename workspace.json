@@ -1,6 +1,25 @@
 {
   "version": 2,
   "projects": {
+    "legacy-api": {
+      "root": "apps/legacy-api",
+      "projectType": "application",
+      "sourceRoot": "apps/legacy-api",
+      "targets": {
+        "build": {
+          "executor": "./dist/libs/our-dotnet-plugin:build",
+          "outputs": []
+        },
+        "serve": {
+          "executor": "@nrwl/workspace:run-commands",
+          "outputs": [],
+          "options": {
+            "command": "dotnet watch run",
+            "cwd": "apps/legacy-api"
+          }
+        }
+      }
+    },
     "my-modern-app": {
       "projectType": "application",
       "root": "apps/my-modern-app",
@@ -116,6 +135,131 @@
           "outputs": ["{options.outputFile}"],
           "options": {
             "lintFilePatterns": ["apps/my-modern-app-e2e/**/*.{js,ts}"]
+          }
+        }
+      }
+    },
+    "my-new-api": {
+      "root": "apps/my-new-api",
+      "sourceRoot": "apps/my-new-api",
+      "projectType": "application",
+      "targets": {
+        "build": {
+          "executor": "@nrwl/workspace:run-commands",
+          "outputs": ["directory/bin"],
+          "options": {
+            "command": "dotnet build",
+            "cwd": "apps/my-new-api"
+          }
+        },
+        "serve": {
+          "executor": "@nrwl/workspace:run-commands",
+          "outputs": [],
+          "options": {
+            "command": "dotnet watch run",
+            "cwd": "apps/my-new-api"
+          }
+        }
+      }
+    },
+    "my-other-legacy-api": {
+      "root": "apps/my-other-legacy-api",
+      "targets": {
+        "build": {
+          "executor": "@nx-dotnet/core:build",
+          "outputs": ["{options.output}"],
+          "options": {
+            "output": "dist/apps/my-other-legacy-api",
+            "configuration": "Debug"
+          },
+          "configurations": {
+            "production": {
+              "configuration": "Release"
+            }
+          }
+        },
+        "lint": {
+          "executor": "@nx-dotnet/core:format"
+        },
+        "serve": {
+          "executor": "@nx-dotnet/core:serve",
+          "options": {
+            "configuration": "Debug"
+          },
+          "configurations": {
+            "production": {
+              "configuration": "Release"
+            }
+          }
+        }
+      },
+      "projectType": "application"
+    },
+    "our-dotnet-plugin": {
+      "root": "libs/our-dotnet-plugin",
+      "sourceRoot": "libs/our-dotnet-plugin/src",
+      "projectType": "library",
+      "targets": {
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "outputs": ["{options.outputFile}"],
+          "options": {
+            "lintFilePatterns": ["libs/our-dotnet-plugin/**/*.ts"]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/our-dotnet-plugin"],
+          "options": {
+            "jestConfig": "libs/our-dotnet-plugin/jest.config.js",
+            "passWithNoTests": true
+          }
+        },
+        "build": {
+          "executor": "@nrwl/node:package",
+          "outputs": ["{options.outputPath}"],
+          "options": {
+            "outputPath": "dist/libs/our-dotnet-plugin",
+            "tsConfig": "libs/our-dotnet-plugin/tsconfig.lib.json",
+            "packageJson": "libs/our-dotnet-plugin/package.json",
+            "main": "libs/our-dotnet-plugin/src/index.ts",
+            "assets": [
+              "libs/our-dotnet-plugin/*.md",
+              {
+                "input": "./libs/our-dotnet-plugin/src",
+                "glob": "**/!(*.ts)",
+                "output": "./src"
+              },
+              {
+                "input": "./libs/our-dotnet-plugin/src",
+                "glob": "**/*.d.ts",
+                "output": "./src"
+              },
+              {
+                "input": "./libs/our-dotnet-plugin",
+                "glob": "generators.json",
+                "output": "."
+              },
+              {
+                "input": "./libs/our-dotnet-plugin",
+                "glob": "executors.json",
+                "output": "."
+              }
+            ]
+          }
+        }
+      }
+    },
+    "our-dotnet-plugin-e2e": {
+      "root": "apps\\our-dotnet-plugin-e2e",
+      "projectType": "application",
+      "sourceRoot": "apps\\our-dotnet-plugin-e2e/src",
+      "targets": {
+        "e2e": {
+          "executor": "@nrwl/nx-plugin:e2e",
+          "options": {
+            "target": "our-dotnet-plugin:build",
+            "jestConfig": "apps/our-dotnet-plugin-e2e/jest.config.js"
           }
         }
       }

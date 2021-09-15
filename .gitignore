@@ -40,3 +40,7 @@ Thumbs.db
 
 **/bin/*
 **/obj/*
+apps/*/bin
+apps/*/obj
+libs/*/bin
+libs/*/obj

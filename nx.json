@@ -27,12 +27,31 @@
     ]
   },
   "projects": {
+    "legacy-api": {
+      "tags": ["nx-dotnet"],
+      "implicitDependencies": ["our-dotnet-plugin"]
+    },
     "my-modern-app": {
-      "tags": []
+      "tags": [],
+      "implicitDependencies": ["legacy-api"]
     },
     "my-modern-app-e2e": {
       "tags": [],
       "implicitDependencies": ["my-modern-app"]
+    },
+    "my-new-api": {
+      "tags": ["nx-dotnet"]
+    },
+    "my-other-legacy-api": {
+      "tags": ["nx-dotnet"]
+    },
+    "our-dotnet-plugin": {
+      "tags": []
+    },
+    "our-dotnet-plugin-e2e": {
+      "tags": [],
+      "implicitDependencies": ["our-dotnet-plugin"]
     }
-  }
+  },
+  "plugins": ["@nx-dotnet/core"]
 }

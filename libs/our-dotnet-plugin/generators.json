@@ -1,0 +1,12 @@
+{
+  "$schema": "http://json-schema.org/schema",
+  "name": "our-dotnet-plugin",
+  "version": "0.0.1",
+  "generators": {
+    "our-dotnet-plugin": {
+      "factory": "./src/generators/our-dotnet-plugin/generator",
+      "schema": "./src/generators/our-dotnet-plugin/schema.json",
+      "description": "our-dotnet-plugin generator"
+    }
+  }
+}
